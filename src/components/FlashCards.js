@@ -14,13 +14,13 @@ export function FlashCards() {
     const navigate = useNavigate()
 
     function handleGoBack(){
-        navigate('/')
+        navigate('/Flash-cards')
     }
     return (
         <Routes>
             <Route 
                 exact 
-                path="/" 
+                path="/Flash-cards" 
                 element={<HomePage 
                     data={data}
                     navigate={navigate}
