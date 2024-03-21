@@ -16,6 +16,7 @@ export function FlashCards() {
     function handleGoBack(){
         navigate('/Flash-cards')
     }
+
     return (
         <Routes>
             <Route 
@@ -43,6 +44,7 @@ export function FlashCards() {
                 path="/display-card"
                 element={data.length > 0 && <DisplayFlashCards
                     data={data}
+                    setData={setData}
                     handleGoBack={handleGoBack}
                     navigate={navigate}
                 />}

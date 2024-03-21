@@ -1,6 +1,13 @@
-import React from "react";
+import React, {useState, useRef} from "react";
 
 export function FlashCardForm(props){
+    const [isDisabled, setIsDisabled] = useState(true)
+    const [errorMessage, setErrorMessage] = useState({
+        emptyLabel: '',
+        emptyDescription: ''
+    })
+    const labelInput = useRef()
+    const description = useRef()
 
     function handleInputChange(e){
         const {name, value} = e.target
@@ -8,6 +15,7 @@ export function FlashCardForm(props){
             ...props.singleFormData,
             [name]: value
         })
+        toggleButton()
     }
     function AddCard(e){
         e.preventDefault()
@@ -19,6 +27,30 @@ export function FlashCardForm(props){
         alert('Added successfully!')
     }
 
+    function toggleButton(){
+        if(labelInput.current.value !== '' && description.current.value !== ''){
+            setIsDisabled(false)
+            setErrorMessage({
+                emptyLabel: '',
+                description: ''
+            })
+        }
+        else if(labelInput.current.value === ''){
+            setIsDisabled(true)
+            setErrorMessage({
+                ...errorMessage,
+                emptyLabel: 'Card label should not be empty'
+            })
+        }
+        else if(description.current.value === ''){
+            setIsDisabled(true)
+            setErrorMessage({
+                ...errorMessage,
+                description: 'Description should not be empty'
+            })
+        }
+    }
+
     return (
         <>
         <div>
@@ -28,21 +60,22 @@ export function FlashCardForm(props){
             <div className="form-container">
                 <form className="form" onSubmit={AddCard}>
                     <div className="form-group">
-                        <label for="cardlabel">Card Label</label>
+                        <label htmlFor="cardlabel">Card Label</label>
                         <input 
                             type="text" 
-                            required 
+                            ref={labelInput}
                             className="cardLabel"
                             name="cardLabel"
                             id="cardlabel" 
                             value={props.singleFormData.cardLabel} 
                             onChange={handleInputChange}
                         ></input>
+                        {errorMessage.emptyLabel && <p className="errorMessage">{errorMessage.emptyLabel}</p>}
                     </div>
                     <div className="form-group">
-                        <label for="description">Description</label>
+                        <label htmlFor="description">Description</label>
                         <textarea 
-                            required 
+                            ref={description}
                             cols="40" 
                             rows="10"
                             className="cardLabel"
@@ -51,8 +84,13 @@ export function FlashCardForm(props){
                             value={props.singleFormData.description} 
                             onChange={handleInputChange}
                         ></textarea>
+                       {errorMessage.description && <p className="errorMessage">{errorMessage.description}</p> }
                     </div>
-                    <button type="submit" className="form-submit-btn">Add</button>
+                    <button 
+                        type="submit" 
+                        className={isDisabled ? "form-submit-btn disable" : "form-submit-btn"}
+                        disabled={isDisabled}
+                    >Add</button>
                 </form>
             </div>
         </div>
