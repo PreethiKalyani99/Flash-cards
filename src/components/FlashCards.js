@@ -8,7 +8,8 @@ import { DisplayFlashCards } from "./DisplayFlashCards";
 export function FlashCards() {
     const [singleFormData, setSingleFormData] = useState({
         cardLabel: '',
-        description: ''
+        description: '',
+        flipped: false
     })
     const [data, setData] = useState([])
     const navigate = useNavigate()

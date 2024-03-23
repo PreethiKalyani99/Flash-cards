@@ -4,7 +4,7 @@ export function FlashCardForm(props){
     const [isDisabled, setIsDisabled] = useState(true)
     const [errorMessage, setErrorMessage] = useState({
         emptyLabel: '',
-        emptyDescription: ''
+        emptyDescription: '',
     })
     const labelInput = useRef()
     const description = useRef()
@@ -13,7 +13,8 @@ export function FlashCardForm(props){
         const {name, value} = e.target
         props.setSingleFormData({
             ...props.singleFormData,
-            [name]: value
+            [name]: value,
+            flipped:false
         })
         toggleButton()
     }
@@ -21,6 +22,7 @@ export function FlashCardForm(props){
         e.preventDefault()
         props.setData([...props.data, props.singleFormData])
         props.setSingleFormData({
+            ...props.singleFormData,
             cardLabel: '',
             description: ''
         })
