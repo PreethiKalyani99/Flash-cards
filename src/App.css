@@ -339,10 +339,10 @@
 
 @keyframes liftAndDownBack {
   0% {
-      transform: translateY(-60%) rotateY(180deg);   
+      transform: translateY(-60%);   
   }
   100%{
-      transform: translateY(0) rotateY(180deg); 
+      transform: translateY(0); 
   }
 }
 
@@ -371,14 +371,21 @@
   position: sticky;
   bottom: 10px; 
   height: 11%;
-  left: 75%;
-  top: 85%;
 }
 
 .flip-icon{
   width: 12px;
   height: 12px;
   margin-right: 5px;
+}
+
+.small-text{
+  top: 70%;
+  left: 58%;
+}
+.long-text{
+  left: 75%;
+  top: 85%;
 }
 
 .back-btn, .next-btn{

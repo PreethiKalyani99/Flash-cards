@@ -27,6 +27,7 @@ export function FlashCardForm(props){
             description: ''
         })
         alert('Added successfully!')
+        setIsDisabled(true)
     }
 
     function toggleButton(){
