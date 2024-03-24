@@ -23,7 +23,6 @@ export function DisplayFlashCards(props){
             const j = Math.floor(Math.random() * (i + 1));
             [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
         }
-        console.log(shuffledCards, 'shuffle')
         props.setData(shuffledCards);
     }
     function showNextCard(id) {
@@ -71,26 +70,30 @@ export function DisplayFlashCards(props){
             const style = calculateCardStyle(index, props.data.length)
             const isNextCard = next && index === props.data.length-1
             const isFirstBackCard = index === 0 && back
- 
+                console.log(card.cardLabel.length, card.description.length , 'label description')
             return (
                 <Card className='flash-card' style={style} key={card.id}>
                     <div className={card.flipped  ? `${isNextCard ?'inner-card flipped next-card-flipped' : isFirstBackCard ? 'inner-card flipped back-card' : 'inner-card flipped'}` : `${isNextCard ?'inner-card next-card' : isFirstBackCard ? 'inner-card back-card' : 'inner-card'}`}>
-                        <CardBody className={card.flipped ? 'card-body back' :'card-body front'}>
+                        <CardBody className={card.flipped ? card.cardLabel.length > 100 ? 'card-body back scrollable' : 'card-body back' : card.description.length > 100 ? 'card-body front scrollable' : 'card-body front'}>
                             <span className='card-text'>{card.flipped ? card.description : card.cardLabel}</span>
                             <Button className='flip-btn' onClick={() => flipCard(index, true)}>
                                 <span> <img src={flipIcon} alt='flip icon' className='flip-icon'/>{card.flipped ? 'Flip Back' : 'Flip'}</span>
                             </Button>
                         </CardBody>
                         <CardFooter className={card.flipped ? `card-footer back` : 'card-footer front'}>
-                            <Button onClick={showPreviosCard} className='back-btn'>Back</Button> 
-                            <Button onClick={() => showNextCard(card.id)} className='next-btn'>Next</Button>
-                            <Button onClick={shuffleCards} className='shuffle-btn'>Shuffle</Button>
+                            <Button 
+                                onClick={showPreviosCard} 
+                                className='back-btn'
+                                disabled={props.data.length <= 1}
+                            >Back</Button> 
+                            <Button onClick={() => showNextCard(card.id)} className='next-btn' disabled={props.data.length <= 1}>Next</Button>
+                            <Button onClick={shuffleCards} className='shuffle-btn' disabled={props.data.length <= 1}>Shuffle</Button>
                         </CardFooter>
                     </div> 
                 </Card>
             )
         })}
     </div>
-        </>
+    </>
     )
 }

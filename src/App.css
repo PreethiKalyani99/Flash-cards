@@ -273,7 +273,6 @@
   border-right: 1px solid black;
   display: flex;
   flex-wrap: wrap;
-  overflow: auto;
 }
 
 .card-footer{
@@ -298,6 +297,7 @@
   height: 100%;
   transform-style: preserve-3d;
 }
+
 
 .card-body .back, .card-footer .back {
   transform: rotateY(180deg);
@@ -339,10 +339,10 @@
 
 @keyframes liftAndDownBack {
   0% {
-      transform: translateY(-60%);   
+      transform: translateY(-60%) rotateY(180deg);   
   }
   100%{
-      transform: translateY(0); 
+      transform: translateY(0) rotateY(180deg); 
   }
 }
 
@@ -397,3 +397,8 @@
   left: 5%;
   font-size: 20px;
 }
+
+.scrollable{
+  overflow: auto;
+}
+
